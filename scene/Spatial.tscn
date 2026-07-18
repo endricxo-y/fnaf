@@ -39,7 +39,7 @@ height = 1.5083
 depth = 6.28586
 
 [node name="CSGBox9" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78321, 1.07848, -3.96596 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78321, 1.48464, -3.96596 )
 use_collision = true
 width = 0.189662
 height = 4.4107
@@ -74,7 +74,7 @@ height = 1.5083
 depth = 6.28586
 
 [node name="CSGBox4" type="CSGBox" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00444591, 0.362399, -12.3276 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0841523, 0.362399, -12.0487 )
 use_collision = true
 width = 1.40334
 height = 1.49997
@@ -116,7 +116,7 @@ back_pos_path = NodePath("../BackPos")
 view_button_path = NodePath("../UI/ViewButton")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 3.19258, 0, 0, 0, 1.46813, 0, 0, 0, 0.0399562, 0, 3.67553, -12.2724 )
+transform = Transform( 3.19258, 0, 0, 0, 1.46813, 0, 0, 0, 0.0399562, 0, 3.67553, -12.0078 )
 extra_cull_margin = 16.0
 mesh = SubResource( 1 )
 script = ExtResource( 2 )
