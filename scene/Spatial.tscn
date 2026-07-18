@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Script/CORE/FnafMovement.gd" type="Script" id=1]
 [ext_resource path="res://Script/CORE/RollingDoor.gd" type="Script" id=2]
+[ext_resource path="res://Asset/Texture/WhatsApp Image 2026-07-18 at 20.25.17.jpeg" type="Texture" id=3]
+[ext_resource path="res://Asset/Texture/WhatsApp Image 2026-07-18 at 20.25.17 (1).jpeg" type="Texture" id=4]
+[ext_resource path="res://Asset/Texture/WhatsApp Image 2026-07-18 at 20.25.17 (3).jpeg" type="Texture" id=5]
+[ext_resource path="res://Asset/Texture/WhatsApp Image 2026-07-18 at 20.25.17 (2).jpeg" type="Texture" id=6]
 
 [sub_resource type="ProceduralSky" id=3]
-radiance_size = 0
 sky_top_color = Color( 0.188235, 0.254902, 0.294118, 1 )
 sky_horizon_color = Color( 0.576471, 0.611765, 0.639216, 1 )
 
@@ -12,8 +15,11 @@ sky_horizon_color = Color( 0.576471, 0.611765, 0.639216, 1 )
 background_mode = 2
 background_sky = SubResource( 3 )
 background_energy = 0.38
-ambient_light_energy = 0.41
+ambient_light_energy = 0.74
+ambient_light_sky_contribution = 0.27
 tonemap_mode = 1
+tonemap_exposure = 1.37
+tonemap_white = 1.97
 auto_exposure_scale = 0.5
 auto_exposure_min_luma = 6.82
 auto_exposure_max_luma = 16.0
@@ -22,15 +28,105 @@ ss_reflections_enabled = true
 ss_reflections_depth_tolerance = 0.1
 ssao_enabled = true
 ssao_radius = 0.24
-ssao_intensity = 9.55
+ssao_intensity = 2.5
 ssao_intensity2 = 0.0
 ssao_bias = 0.001
+ssao_quality = 2
 ssao_blur = 0
 ssao_edge_sharpness = 0.0
-dof_blur_far_distance = 0.12
-dof_blur_far_transition = 0.01
-dof_blur_far_amount = 0.0
+dof_blur_far_enabled = true
+dof_blur_far_distance = 450.98
+dof_blur_far_transition = 80.6
+dof_blur_far_amount = 0.15
 dof_blur_far_quality = 0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.01
+
+[sub_resource type="ORMSpatialMaterial" id=5]
+albedo_texture = ExtResource( 3 )
+normal_enabled = true
+normal_scale = -7.93
+uv1_scale = Vector3( 31.57, 10.814, 31.685 )
+uv2_scale = Vector3( 1.079, 3.1, 1.079 )
+
+[sub_resource type="ORMSpatialMaterial" id=15]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ORMSpatialMaterial" id=6]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=7]
+albedo_texture = ExtResource( 4 )
+uv1_scale = Vector3( -0.642, -0.431, -0.618 )
+
+[sub_resource type="ORMSpatialMaterial" id=8]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ORMSpatialMaterial" id=9]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="ORMSpatialMaterial" id=10]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ORMSpatialMaterial" id=11]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="ORMSpatialMaterial" id=12]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ORMSpatialMaterial" id=16]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 12.332, 5.13, 5.47 )
+
+[sub_resource type="ORMSpatialMaterial" id=13]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ORMSpatialMaterial" id=18]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=19]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=20]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=21]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=22]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=23]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 43.968, 36.014, 111 )
+
+[sub_resource type="ORMSpatialMaterial" id=24]
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="ORMSpatialMaterial" id=25]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=26]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=27]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=28]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=29]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=14]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="ORMSpatialMaterial" id=17]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 111.504, 11.05, 6.591 )
+
+[sub_resource type="ORMSpatialMaterial" id=30]
+albedo_texture = ExtResource( 6 )
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -56,6 +152,7 @@ use_collision = true
 width = 6.04612
 height = 0.0602782
 depth = 15.0766
+material = SubResource( 5 )
 
 [node name="CSGBox24" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.657249, -2.61203, -0.191307, -20.136 )
@@ -63,6 +160,7 @@ use_collision = true
 width = 0.462323
 height = 0.223891
 depth = 15.0766
+material = SubResource( 15 )
 
 [node name="CSGBox25" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.657249, -2.28286, -0.41201, -20.136 )
@@ -70,6 +168,7 @@ use_collision = true
 width = 0.462323
 height = 0.223891
 depth = 15.0766
+material = SubResource( 15 )
 
 [node name="CSGBox26" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.657249, -1.9123, -0.589982, -20.136 )
@@ -77,6 +176,7 @@ use_collision = true
 width = 0.462323
 height = 0.223891
 depth = 15.0766
+material = SubResource( 15 )
 
 [node name="CSGBox27" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.657249, -1.50618, -0.701631, -20.136 )
@@ -84,6 +184,7 @@ use_collision = true
 width = 0.462323
 height = 0.223891
 depth = 15.0766
+material = SubResource( 15 )
 
 [node name="CSGBox29" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.13799, -2.61203, -0.191307, -40.2791 )
@@ -119,6 +220,7 @@ use_collision = true
 width = 10.7589
 height = 0.0602782
 depth = 14.9876
+material = SubResource( 6 )
 
 [node name="CSGBox2" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02392, 1.62404, -5.52489 )
@@ -126,6 +228,7 @@ use_collision = true
 width = 0.189662
 height = 3.35239
 depth = 12.8712
+material = SubResource( 7 )
 
 [node name="CSGBox3" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 0.373281, 0.0895723 )
@@ -133,6 +236,7 @@ use_collision = true
 width = 0.189662
 height = 1.5083
 depth = 6.28586
+material = SubResource( 8 )
 
 [node name="CSGBox9" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78321, 1.48464, -3.96596 )
@@ -140,6 +244,7 @@ use_collision = true
 width = 0.189662
 height = 4.4107
 depth = 1.86231
+material = SubResource( 8 )
 
 [node name="CSGBox8" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 2.95457, 0.0895723 )
@@ -147,6 +252,7 @@ use_collision = true
 width = 0.189662
 height = 1.5083
 depth = 6.28586
+material = SubResource( 9 )
 
 [node name="CSGBox10" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 0.373281, -7.77526 )
@@ -154,6 +260,7 @@ use_collision = true
 width = 0.189662
 height = 1.5083
 depth = 6.28586
+material = SubResource( 8 )
 
 [node name="CSGBox11" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78321, 1.07848, -11.3812 )
@@ -161,6 +268,7 @@ use_collision = true
 width = 0.189662
 height = 4.4107
 depth = 1.05925
+material = SubResource( 10 )
 
 [node name="CSGBox12" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 2.95457, -7.77526 )
@@ -168,6 +276,47 @@ use_collision = true
 width = 0.189662
 height = 1.5083
 depth = 6.28586
+material = SubResource( 11 )
+
+[node name="CSGBox47" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.25593, 2.95457, 2.83247 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 12.1348
+material = SubResource( 11 )
+
+[node name="CSGBox46" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93554, 2.95457, -5.5294 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 13.1932
+material = SubResource( 11 )
+
+[node name="CSGBox48" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1939, 2.95457, -5.5294 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 13.1932
+material = SubResource( 11 )
+
+[node name="CSGBox53" type="CSGBox" parent="Map"]
+transform = Transform( 0.999963, 0, -0.00860437, 0, 1, 0, 0.00860437, 0, 0.999963, -7.56056, 2.95457, -8.54308 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 23.948
+material = SubResource( 11 )
+
+[node name="CSGBox55" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.23239, 2.95457, -36.2742 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 23.7259
+material = SubResource( 11 )
 
 [node name="CSGBox4" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0841523, 0.362399, -12.0487 )
@@ -175,6 +324,7 @@ use_collision = true
 width = 1.40334
 height = 1.49997
 depth = 6.06224
+material = SubResource( 12 )
 
 [node name="CSGBox28" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0841523, -0.353235, -13.8507 )
@@ -182,6 +332,7 @@ use_collision = true
 width = 2.69707
 height = 0.685376
 depth = 6.06224
+material = SubResource( 16 )
 
 [node name="CSGBox33" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.12564, -0.353235, -28.436 )
@@ -210,9 +361,10 @@ use_collision = true
 width = 0.189662
 height = 3.25742
 depth = 10.7018
+material = SubResource( 13 )
 
 [node name="CSGBox18" type="CSGBox" parent="Map"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -13.6952, 2.30791, -20.6497 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -13.6952, 2.30791, -20.5044 )
 use_collision = true
 width = 0.189662
 height = 5.23883
@@ -231,6 +383,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 17.3743
+material = SubResource( 18 )
 
 [node name="CSGBox39" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -29.7705, 2.03604, -36.6933 )
@@ -238,6 +391,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 6.80606
+material = SubResource( 19 )
 
 [node name="CSGBox40" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -19.5532, 2.01475, -41.3295 )
@@ -245,6 +399,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 6.80606
+material = SubResource( 20 )
 
 [node name="CSGBox41" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -29.974, 1.93914, -47.8214 )
@@ -266,6 +421,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 30.2684
+material = SubResource( 21 )
 
 [node name="CSGBox38" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 1, -33.1022, 1.99514, -40.9755 )
@@ -273,6 +429,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 30.2684
+material = SubResource( 22 )
 
 [node name="CSGBox43" type="CSGBox" parent="Map"]
 transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -1.93154, 0, -8.44305e-08, -7.60769, -0.353235, -54.6154 )
@@ -280,6 +437,7 @@ use_collision = true
 width = 6.97059
 height = 0.685376
 depth = 4.13599
+material = SubResource( 23 )
 
 [node name="CSGBox44" type="CSGBox" parent="Map"]
 transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -1.93154, 0, -8.44305e-08, -7.60769, 4.1225, -54.6154 )
@@ -287,6 +445,7 @@ use_collision = true
 width = 6.97059
 height = 0.685376
 depth = 4.13599
+material = SubResource( 24 )
 
 [node name="CSGBox45" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -13.7371, 1.7984, -48.1369 )
@@ -294,6 +453,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 5.59735
+material = SubResource( 25 )
 
 [node name="CSGBox52" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -1.95883, 2.04549, -48.0991 )
@@ -301,6 +461,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 6.27112
+material = SubResource( 26 )
 
 [node name="CSGBox49" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -7.64222, 1.95697, -61.1685 )
@@ -308,6 +469,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 17.3743
+material = SubResource( 27 )
 
 [node name="CSGBox50" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 0.452095, -16.096, 1.99514, -54.6827 )
@@ -315,6 +477,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 30.2684
+material = SubResource( 28 )
 
 [node name="CSGBox51" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 0.452095, 0.916682, 1.99514, -54.6827 )
@@ -322,9 +485,10 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 28.8325
+material = SubResource( 29 )
 
 [node name="CSGBox19" type="CSGBox" parent="Map"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -9.62842, 2.30791, -24.3027 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -9.65855, 2.30791, -24.4506 )
 use_collision = true
 width = 0.189662
 height = 5.23883
@@ -343,23 +507,19 @@ use_collision = true
 width = 0.189662
 height = 0.313093
 depth = 6.06224
+material = SubResource( 14 )
 
 [node name="CSGBox13" type="CSGBox" parent="Map"]
 transform = Transform( 0.99995, 0, -0.00998312, 0, 1, 0, 0.00998312, 0, 0.99995, -5.18863, -0.0529295, -22.8206 )
 width = 5.00506
 height = 0.0893885
 depth = 51.8675
+material = SubResource( 17 )
 
 [node name="CSGBox14" type="CSGBox" parent="Map"]
 transform = Transform( 0.99995, 0, -0.00998312, 0, 1, 0, 0.00998312, 0, 0.99995, -13.5986, -0.0529295, -22.5127 )
 width = 11.9873
 height = 0.0893885
-depth = 3.85115
-
-[node name="CSGBox22" type="CSGBox" parent="Map"]
-transform = Transform( -0.00806339, 0, -0.999967, 0, 6.16977, 0, 0.999967, 0, -0.00806339, -9.43484, 3.9489, -22.5127 )
-width = 51.3243
-height = 1.61822
 depth = 3.85115
 
 [node name="CSGBox15" type="CSGBox" parent="Map"]
@@ -375,13 +535,14 @@ height = 0.0893885
 depth = 1.82173
 
 [node name="CSGBox16" type="CSGBox" parent="Map"]
-transform = Transform( -4.37092e-08, -0.99995, -0.00998312, 2.75149, -1.20272e-07, 0, -4.36376e-10, -0.00998312, 0.99995, -7.64077, 6.35834, -8.70983 )
+transform = Transform( -1.20265e-07, -0.99995, -0.00998312, 2.75149, -4.37114e-08, 1.38778e-17, -1.20068e-09, -0.00998312, 0.99995, -7.64077, 6.35834, -8.70983 )
 width = 4.89552
 height = 0.0893885
 depth = 23.7419
+material = SubResource( 30 )
 
 [node name="CSGBox17" type="CSGBox" parent="Map"]
-transform = Transform( -4.37092e-08, -0.99995, -0.00998312, 2.75149, -1.20272e-07, 0, -4.36376e-10, -0.00998312, 0.99995, -7.37035, 6.35834, -36.2381 )
+transform = Transform( -1.20268e-07, -0.999972, -0.00745249, 2.75149, -4.37114e-08, 0, -8.96321e-10, -0.00745249, 0.999972, -7.37035, 6.35834, -36.2381 )
 width = 4.89552
 height = 0.0893885
 depth = 23.7419
@@ -438,5 +599,15 @@ transform = Transform( 1, -1.49012e-08, -5.96046e-08, 4.47035e-08, 1, 5.96046e-0
 transform = Transform( -0.612121, -0.244261, 0.752093, 0.291174, 0.81465, 0.501561, -0.735204, 0.526006, -0.427543, -0.751389, -1.0386, 0.368834 )
 
 [node name="Spatial" type="Spatial" parent="."]
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.00139624, 0.999999, 0, -0.999999, 0.00139624, 0, 2.72718, -6.78961 )
+light_energy = 4.596
+light_bake_mode = 0
+shadow_bias = 0.143
+spot_range = 8.486
+spot_attenuation = 12.1257
+spot_angle = 48.96
+spot_angle_attenuation = 0.870551
 
 [connection signal="pressed" from="UIBehindNFront/ViewButton" to="ClippedCamera" method="_on_view_button_pressed"]
