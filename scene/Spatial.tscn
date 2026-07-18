@@ -1,15 +1,36 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Script/FnafMovement.gd" type="Script" id=1]
-[ext_resource path="res://Script/RollingDoor.gd" type="Script" id=2]
+[ext_resource path="res://Script/CORE/FnafMovement.gd" type="Script" id=1]
+[ext_resource path="res://Script/CORE/RollingDoor.gd" type="Script" id=2]
 
 [sub_resource type="ProceduralSky" id=3]
+radiance_size = 0
+sky_top_color = Color( 0.188235, 0.254902, 0.294118, 1 )
+sky_horizon_color = Color( 0.576471, 0.611765, 0.639216, 1 )
 
 [sub_resource type="Environment" id=4]
 background_mode = 2
 background_sky = SubResource( 3 )
-auto_exposure_enabled = true
+background_energy = 0.38
+ambient_light_energy = 0.41
+tonemap_mode = 1
+auto_exposure_scale = 0.5
+auto_exposure_min_luma = 6.82
+auto_exposure_max_luma = 16.0
+auto_exposure_speed = 0.01
+ss_reflections_enabled = true
+ss_reflections_depth_tolerance = 0.1
 ssao_enabled = true
+ssao_radius = 0.24
+ssao_intensity = 9.55
+ssao_intensity2 = 0.0
+ssao_bias = 0.001
+ssao_blur = 0
+ssao_edge_sharpness = 0.0
+dof_blur_far_distance = 0.12
+dof_blur_far_transition = 0.01
+dof_blur_far_amount = 0.0
+dof_blur_far_quality = 0
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -169,6 +190,20 @@ width = 6.97059
 height = 0.685376
 depth = 4.13599
 
+[node name="CSGBox34" type="CSGBox" parent="Map"]
+transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -4.27243, 0, -1.86754e-07, -24.6139, -0.353235, -40.8267 )
+use_collision = true
+width = 6.97059
+height = 0.685376
+depth = 4.13599
+
+[node name="CSGBox42" type="CSGBox" parent="Map"]
+transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -4.27243, 0, -1.86754e-07, -24.6139, 4.1225, -40.8267 )
+use_collision = true
+width = 6.97059
+height = 0.685376
+depth = 4.13599
+
 [node name="CSGBox6" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.44293, 1.64279, 2.92997 )
 use_collision = true
@@ -189,6 +224,104 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 12.3978
+
+[node name="CSGBox35" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -24.6484, 1.80799, -26.5192 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 17.3743
+
+[node name="CSGBox39" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -29.7705, 2.03604, -36.6933 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 6.80606
+
+[node name="CSGBox40" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -19.5532, 2.01475, -41.3295 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 6.80606
+
+[node name="CSGBox41" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -29.974, 1.93914, -47.8214 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 6.80606
+
+[node name="CSGBox37" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -24.6484, 1.95697, -55.3215 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 17.3743
+
+[node name="CSGBox36" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 1, -16.2349, 1.93013, -40.9755 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 30.2684
+
+[node name="CSGBox38" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 1, -33.1022, 1.99514, -40.9755 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 30.2684
+
+[node name="CSGBox43" type="CSGBox" parent="Map"]
+transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -1.93154, 0, -8.44305e-08, -7.60769, -0.353235, -54.6154 )
+use_collision = true
+width = 6.97059
+height = 0.685376
+depth = 4.13599
+
+[node name="CSGBox44" type="CSGBox" parent="Map"]
+transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -1.93154, 0, -8.44305e-08, -7.60769, 4.1225, -54.6154 )
+use_collision = true
+width = 6.97059
+height = 0.685376
+depth = 4.13599
+
+[node name="CSGBox45" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -13.7371, 1.7984, -48.1369 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 5.59735
+
+[node name="CSGBox52" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -1.95883, 2.04549, -48.0991 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 6.27112
+
+[node name="CSGBox49" type="CSGBox" parent="Map"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -7.64222, 1.95697, -61.1685 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 17.3743
+
+[node name="CSGBox50" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 0.452095, -16.096, 1.99514, -54.6827 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 30.2684
+
+[node name="CSGBox51" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 0.452095, 0.916682, 1.99514, -54.6827 )
+use_collision = true
+width = 0.189662
+height = 5.23883
+depth = 28.8325
 
 [node name="CSGBox19" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -9.62842, 2.30791, -24.3027 )
@@ -226,7 +359,7 @@ depth = 3.85115
 [node name="CSGBox22" type="CSGBox" parent="Map"]
 transform = Transform( -0.00806339, 0, -0.999967, 0, 6.16977, 0, 0.999967, 0, -0.00806339, -9.43484, 3.9489, -22.5127 )
 width = 51.3243
-height = 0.0893885
+height = 1.61822
 depth = 3.85115
 
 [node name="CSGBox15" type="CSGBox" parent="Map"]
@@ -285,10 +418,25 @@ text = "BEHIND"
 [node name="BackPos" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.50092 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.958678, -0.0875021, 0.270701, 0.0190251, 0.969113, 0.245881, -0.283855, -0.230571, 0.930733, -4.05592, 2.98364, -2.51101 )
+[node name="lantai 1" type="Spatial" parent="."]
+transform = Transform( -0.726085, -0.222312, 0.650675, 0.0154624, 0.940773, 0.338683, -0.687431, 0.255974, -0.679644, -16.6906, 4.03806, -54.9666 )
 
-[node name="Camera2" type="Camera" parent="."]
-transform = Transform( 0.411861, -0.231687, 0.881301, 0.0190251, 0.969113, 0.245881, -0.911048, -0.0845021, 0.403548, -8.3506, 2.98364, -21.0465 )
+[node name="Camera" type="Camera" parent="lantai 1"]
+transform = Transform( -0.500657, 0.23702, -0.832565, -0.267887, 0.872149, 0.409382, 0.823152, 0.427993, -0.373153, -45.2498, 9.62644, -27.7872 )
+
+[node name="Camera2" type="Camera" parent="lantai 1"]
+transform = Transform( 0.327531, 0.241299, -0.913509, -0.306868, 0.941593, 0.138692, 0.89362, 0.234901, 0.382447, -29.3896, 5.8366, -17.9841 )
+
+[node name="Camera3" type="Camera" parent="lantai 1"]
+transform = Transform( -0.994299, 0.0980898, -0.0418034, 0.027797, 0.616956, 0.786506, 0.102939, 0.780861, -0.616166, -7.82936, 10.2507, -29.6532 )
+fov = 75.1257
+
+[node name="Camera4" type="Camera" parent="lantai 1"]
+transform = Transform( 1, -1.49012e-08, -5.96046e-08, 4.47035e-08, 1, 5.96046e-08, 0, -8.9407e-08, 1, -0.010437, -0.634944, -0.228582 )
+
+[node name="Camera5" type="Camera" parent="lantai 1"]
+transform = Transform( -0.612121, -0.244261, 0.752093, 0.291174, 0.81465, 0.501561, -0.735204, 0.526006, -0.427543, -0.751389, -1.0386, 0.368834 )
+
+[node name="Spatial" type="Spatial" parent="."]
 
 [connection signal="pressed" from="UIBehindNFront/ViewButton" to="ClippedCamera" method="_on_view_button_pressed"]
