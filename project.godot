@@ -9,13 +9,67 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "CameraState",
+"language": "GDScript",
+"path": "res://Script/fnaf_movement/CameraState.gd"
+}, {
+"base": "Node",
+"class": "DoorInputHandler",
+"language": "GDScript",
+"path": "res://Script/rolling_door/DoorInputHandler.gd"
+}, {
+"base": "Reference",
+"class": "DoorMotionController",
+"language": "GDScript",
+"path": "res://Script/rolling_door/DoorMotionController.gd"
+}, {
+"base": "Spatial",
+"class": "DoorObstacleDetector",
+"language": "GDScript",
+"path": "res://Script/rolling_door/DoorObstacleDetector.gd"
+}, {
+"base": "Reference",
+"class": "DoorState",
+"language": "GDScript",
+"path": "res://Script/rolling_door/DoorState.gd"
+}, {
+"base": "Reference",
+"class": "Easing",
+"language": "GDScript",
+"path": "res://Script/utils/Easing.gd"
+}, {
 "base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
+"base": "Reference",
+"class": "LookDownDetector",
+"language": "GDScript",
+"path": "res://Script/fnaf_movement/LookDownDetector.gd"
+}, {
+"base": "Reference",
+"class": "MouseLookController",
+"language": "GDScript",
+"path": "res://Script/fnaf_movement/MouseLookController.gd"
+}, {
+"base": "Reference",
+"class": "ViewTransitioner",
+"language": "GDScript",
+"path": "res://Script/fnaf_movement/ViewTransitioner.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"CameraState": "",
+"DoorInputHandler": "",
+"DoorMotionController": "",
+"DoorObstacleDetector": "",
+"DoorState": "",
+"Easing": "",
+"GitAPI": "",
+"LookDownDetector": "",
+"MouseLookController": "",
+"ViewTransitioner": ""
 }
 
 [application]

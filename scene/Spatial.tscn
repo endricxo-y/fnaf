@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scene/FnafMovement.gd" type="Script" id=1]
-[ext_resource path="res://scene/RollingDoor.gd" type="Script" id=2]
+[ext_resource path="res://Script/FnafMovement.gd" type="Script" id=1]
+[ext_resource path="res://Script/RollingDoor.gd" type="Script" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -128,8 +128,6 @@ transform = Transform( 3.19258, 0, 0, 0, 1.46813, 0, 0, 0, 0.0399562, 0, 3.67553
 extra_cull_margin = 16.0
 mesh = SubResource( 1 )
 script = ExtResource( 2 )
-interaction_area = NodePath("Area")
-bottom_ray = NodePath("BottomRay")
 
 [node name="Area" type="Area" parent="MeshInstance"]
 
