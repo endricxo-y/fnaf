@@ -37,7 +37,6 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	front_pos = camera.global_transform.origin
 	if view_button:
-		view_button.connect("pressed", self, "_on_view_button_pressed")
 		view_button.hide()
 
 
