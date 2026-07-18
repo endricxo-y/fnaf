@@ -1,17 +1,21 @@
-# Godot 4+ specific ignores
-.godot/
-.nomedia
-
-# Godot-specific ignores
+# Godot 3-specific ignores
 .import/
 export.cfg
-export_credentials.cfg
-*.tmp
+export_presets.cfg
 
-# Imported translations (automatically generated from CSV files)
-*.translation
-
-# Mono-specific ignores
+# Mono-specific ignores (Jika pakai Godot versi C#)
 .mono/
 data_*/
 mono_crash.*.json
+
+# Build / Export outputs (Abaikan file aplikasi jadi)
+*.exe
+*.apk
+*.html
+*.js
+*.wasm
+*.zip
+
+# System files
+.DS_Store
+Thumbs.db
