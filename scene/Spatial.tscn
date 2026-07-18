@@ -118,8 +118,6 @@ transform = Transform( 3.19258, 0, 0, 0, 1.46813, 0, 0, 0, 0.0399562, 0, 3.67553
 extra_cull_margin = 16.0
 mesh = SubResource( 1 )
 script = ExtResource( 2 )
-interaction_area = NodePath("Area")
-bottom_ray = NodePath("BottomRay")
 
 [node name="Area" type="Area" parent="RollingDoor"]
 
@@ -176,4 +174,5 @@ depth = 23.7419
 
 [node name="Camera" type="Camera" parent="Map"]
 transform = Transform( 0.955797, -0.0897995, 0.279979, 0.0190251, 0.969113, 0.245882, -0.293412, -0.229686, 0.927984, 1.17661, 3.03657, -3.39544 )
+
 [connection signal="pressed" from="UIBehindNFront/ViewButton" to="ClippedCamera" method="_on_view_button_pressed"]
