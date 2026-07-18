@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scene/FnafMovement.gd" type="Script" id=1]
+[ext_resource path="res://scene/RollingDoor.gd" type="Script" id=2]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 0.168381, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.038211, -4.35689 )
+use_collision = true
+width = 6.04612
+height = 0.0602782
+depth = 15.0766
+
+[node name="CSGBox7" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.26598, -4.24423 )
+use_collision = true
+width = 6.04612
+height = 0.0602782
+depth = 14.9876
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02392, 1.62404, -5.52489 )
+use_collision = true
+width = 0.189662
+height = 3.35239
+depth = 12.8712
+
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 0.373281, 0.0895723 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 6.28586
+
+[node name="CSGBox9" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78321, 1.07848, -3.96596 )
+use_collision = true
+width = 0.189662
+height = 4.4107
+depth = 1.86231
+
+[node name="CSGBox8" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 2.95457, 0.0895723 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 6.28586
+
+[node name="CSGBox10" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 0.373281, -7.77526 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 6.28586
+
+[node name="CSGBox11" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78321, 1.07848, -11.8308 )
+use_collision = true
+width = 0.189662
+height = 4.4107
+depth = 1.86231
+
+[node name="CSGBox12" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82013, 2.95457, -7.77526 )
+use_collision = true
+width = 0.189662
+height = 1.5083
+depth = 6.28586
+
+[node name="CSGBox4" type="CSGBox" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00444591, 0.362399, -12.3276 )
+use_collision = true
+width = 1.40334
+height = 1.49997
+depth = 6.06224
+
+[node name="CSGBox6" type="CSGBox" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00444591, 1.64279, 2.92997 )
+use_collision = true
+width = 0.189662
+height = 3.25742
+depth = 6.06224
+
+[node name="CSGBox5" type="CSGBox" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00444591, 3.1929, -11.9353 )
+use_collision = true
+width = 0.189662
+height = 0.313093
+depth = 6.06224
+
+[node name="BackPos" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.50092 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ViewButton" type="Button" parent="UI"]
+anchor_left = 0.35
+anchor_top = 0.82
+anchor_right = 0.65
+anchor_bottom = 0.95
+margin_left = -87.4
+margin_top = 58.0
+margin_right = 75.4
+text = "BEHIND"
+
+[node name="ClippedCamera" type="ClippedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.141369, 1.32018, -7.37409 )
+script = ExtResource( 1 )
+back_pos_path = NodePath("../BackPos")
+view_button_path = NodePath("../UI/ViewButton")
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 3.19258, 0, 0, 0, 1.46813, 0, 0, 0, 0.0399562, 0, 3.67553, -12.2724 )
+extra_cull_margin = 16.0
+mesh = SubResource( 1 )
+script = ExtResource( 2 )
+interaction_area = NodePath("Area")
+bottom_ray = NodePath("BottomRay")
+
+[node name="Area" type="Area" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, -0.960768, 0 )
+shape = SubResource( 2 )
+
+[node name="BottomRay" type="RayCast" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0 )
+enabled = true
+cast_to = Vector3( 0, -5, 0 )
+
+[connection signal="pressed" from="UI/ViewButton" to="ClippedCamera" method="_on_view_button_pressed"]
