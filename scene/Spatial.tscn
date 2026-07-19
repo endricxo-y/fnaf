@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Script/CORE/FnafMovement.gd" type="Script" id=1]
 [ext_resource path="res://Script/CORE/RollingDoor.gd" type="Script" id=2]
@@ -34,12 +34,10 @@ ssao_bias = 0.001
 ssao_quality = 2
 ssao_blur = 0
 ssao_edge_sharpness = 0.0
-dof_blur_far_enabled = true
 dof_blur_far_distance = 450.98
 dof_blur_far_transition = 80.6
 dof_blur_far_amount = 0.15
 dof_blur_far_quality = 0
-dof_blur_near_enabled = true
 dof_blur_near_distance = 0.01
 
 [sub_resource type="ORMSpatialMaterial" id=5]
@@ -78,6 +76,10 @@ albedo_texture = ExtResource( 4 )
 albedo_texture = ExtResource( 3 )
 uv1_scale = Vector3( 12.332, 5.13, 5.47 )
 
+[sub_resource type="ORMSpatialMaterial" id=31]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( 17.723, 22.242, 17.723 )
+
 [sub_resource type="ORMSpatialMaterial" id=13]
 albedo_texture = ExtResource( 4 )
 
@@ -88,6 +90,12 @@ albedo_texture = ExtResource( 6 )
 albedo_texture = ExtResource( 6 )
 
 [sub_resource type="ORMSpatialMaterial" id=20]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=32]
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="ORMSpatialMaterial" id=33]
 albedo_texture = ExtResource( 6 )
 
 [sub_resource type="ORMSpatialMaterial" id=21]
@@ -347,6 +355,7 @@ use_collision = true
 width = 6.97059
 height = 0.685376
 depth = 4.13599
+material = SubResource( 31 )
 
 [node name="CSGBox42" type="CSGBox" parent="Map"]
 transform = Transform( -1.85852e-07, 0, 4.2518, 0, 1.10849, 0, -4.27243, 0, -1.86754e-07, -24.6139, 4.1225, -40.8267 )
@@ -407,6 +416,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 6.80606
+material = SubResource( 32 )
 
 [node name="CSGBox37" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -1, 0, -4.37114e-08, -24.6484, 1.95697, -55.3215 )
@@ -414,6 +424,7 @@ use_collision = true
 width = 0.189662
 height = 5.23883
 depth = 17.3743
+material = SubResource( 33 )
 
 [node name="CSGBox36" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 0.826785, 0, 0, 0, 1, -16.2349, 1.93013, -40.9755 )
@@ -448,11 +459,11 @@ depth = 4.13599
 material = SubResource( 24 )
 
 [node name="CSGBox45" type="CSGBox" parent="Map"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -13.7371, 1.7984, -48.1369 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 0.826785, 0, -0.452095, 0, -1.97617e-08, -11.9193, 1.7984, -48.1034 )
 use_collision = true
 width = 0.189662
 height = 5.23883
-depth = 5.59735
+depth = 9.1561
 material = SubResource( 25 )
 
 [node name="CSGBox52" type="CSGBox" parent="Map"]
