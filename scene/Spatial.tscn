@@ -680,19 +680,19 @@ script = ExtResource( 9 )
 [node name="RobotWaypoints" type="Spatial" parent="."]
 
 [node name="WP1" type="Position3D" parent="RobotWaypoints"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.85694, 0.35, 4.49135 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.85694, 0.35, -0.274109 )
 
 [node name="WP2" type="Position3D" parent="RobotWaypoints"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41241, 0.35, -15.7527 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.92156, 0.35, -13.8123 )
 
 [node name="WP3" type="Position3D" parent="RobotWaypoints"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10425, 0.35, -14.4856 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94592, 0.35, -10.4073 )
 
 [node name="WP4" type="Position3D" parent="RobotWaypoints"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.4462, 0.349998, -23.0516 )
 
 [node name="RobotCleaner" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 0.367839, 0, 0, 0, 1, 3.84654, 1.35544, 3.81162 )
+transform = Transform( 1, 0, 0, 0, 0.367839, 0, 0, 0, 1, 3.84654, 1.35544, -2.02949 )
 waypoints_path = NodePath("../RobotWaypoints")
 
 [connection signal="pressed" from="UIBehindNFront/ViewButton" to="ClippedCamera" method="_on_view_button_pressed"]

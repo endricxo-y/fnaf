@@ -4,36 +4,37 @@ class_name RobotCleaner
 signal player_detected
 
 export(NodePath) var waypoints_path
-export(float) var patrol_duration := 60.0
 export(float) var detection_range := 4.5
 export(float) var float_speed := 2.5
 export(float) var float_amp := 0.12
 export(float) var spin_speed := 25.0
-export(float) var move_speed := 2.5
-export(float) var avoid_dist := 1.5
+export(float) var dwell_time := 30.0
 export(bool) var debug_rays := true
 
+enum State { PATROL, ATTACK, COOLDOWN }
+
 var waypoints := []
-var target_idx := 0
-var travel := 0.0
-var time := 0.0
-var player_visible := false
-var forward := true
-var on_cooldown := false
+var patrol_order := [0, 1, 3, 2]
+var current_idx := 0
+var state = State.PATROL
+var dwell_timer := 0.0
+var attack_timer := 0.0
 var cooldown_timer := 0.0
-var velocity := Vector3.ZERO
+var attack_trigger_wp := 2
 var front_ray: RayCast
 var left_ray: RayCast
 var right_ray: RayCast
 var detect_ray: RayCast
 var debug_geo: ImmediateGeometry
+var time := 0.0
 
 onready var body_mesh: MeshInstance = $Body
 onready var sweeper: MeshInstance = $Sweeper
 onready var light_node: OmniLight = $Light
-onready var player = get_node("../ClippedCamera")
+onready var player = get_node_or_null("../ClippedCamera")
 
 func _ready():
+	randomize()
 	_setup_rays()
 	if debug_rays:
 		debug_geo = ImmediateGeometry.new()
@@ -48,13 +49,20 @@ func _ready():
 		set_process(false)
 		return
 
-	global_transform.origin = waypoints[0]
+	global_transform.origin = waypoints[patrol_order[0]]
+
+	for idx in patrol_order:
+		if idx < 0 or idx >= waypoints.size():
+			set_process(false)
+			return
+
+	dwell_timer = dwell_time
 
 func _setup_rays():
 	var up = Vector3(0, 0.2, 0)
-	front_ray = _make_ray(up + Vector3(0, 0, -avoid_dist))
-	left_ray = _make_ray(up + Vector3(-avoid_dist * 0.7, 0, -avoid_dist * 0.7))
-	right_ray = _make_ray(up + Vector3(avoid_dist * 0.7, 0, -avoid_dist * 0.7))
+	front_ray = _make_ray(up + Vector3(0, 0, -0.5))
+	left_ray = _make_ray(up + Vector3(-0.35, 0, -0.35))
+	right_ray = _make_ray(up + Vector3(0.35, 0, -0.35))
 	detect_ray = _make_ray(Vector3(0, 0, -detection_range))
 
 func _make_ray(cast: Vector3) -> RayCast:
@@ -67,79 +75,112 @@ func _make_ray(cast: Vector3) -> RayCast:
 
 func _process(delta):
 	time += delta
-	_patrol(delta)
+	match state:
+		State.PATROL:
+			_patrol(delta)
+		State.ATTACK:
+			_attack(delta)
+		State.COOLDOWN:
+			_cooldown(delta)
 	_animate(delta)
-	_check_detection()
 	if debug_rays:
 		_draw_debug_rays()
 
 func _patrol(delta):
-	if on_cooldown:
-		cooldown_timer -= delta
-		if cooldown_timer <= 0:
-			on_cooldown = false
-			forward = false
-			travel = 0.0
+	if dwell_timer > 0:
+		dwell_timer -= delta
+		if light_node:
+			light_node.light_color = Color(0.7, 0.85, 1.0)
+			light_node.light_energy = 0.5 + sin(time * 2.5) * 0.15
 		return
 
-	var seg_count = waypoints.size() - 1
-	var seg_dur = patrol_duration / seg_count
-	travel += delta / seg_dur
+	if randf() < 0.5:
+		dwell_timer = dwell_time
+		return
 
-	if travel >= 1.0:
-		travel = 0.0
-		if forward:
-			target_idx += 1
-			if target_idx >= seg_count:
-				on_cooldown = true
-				cooldown_timer = 60.0
-		else:
-			target_idx -= 1
-			if target_idx <= 0:
-				forward = true
+	current_idx += 1
+	if current_idx >= patrol_order.size():
+		current_idx = 0
 
-	var from = waypoints[target_idx]
-	var to = waypoints[target_idx + 1] if forward else waypoints[target_idx - 1]
-	var t = Easing.smoothstep(travel)
-	var target_pos = from.linear_interpolate(to, t)
+	global_transform.origin = waypoints[patrol_order[current_idx]]
 
-	var ideal_dir = (target_pos - global_transform.origin).normalized()
-	ideal_dir.y = 0
+	if patrol_order[current_idx] == attack_trigger_wp:
+		state = State.ATTACK
+		attack_timer = 2.0
+		if light_node:
+			light_node.light_color = Color(1, 0.2, 0.2)
+		return
 
-	var avoid = Vector3.ZERO
-	if front_ray.is_colliding():
-		if not left_ray.is_colliding():
-			avoid = -global_transform.basis.x * move_speed
-		elif not right_ray.is_colliding():
-			avoid = global_transform.basis.x * move_speed
-		else:
-			avoid = -global_transform.basis.z * move_speed * 0.5
+	dwell_timer = dwell_time
 
-	velocity.y -= 9.8 * delta
+func _attack(delta):
+	attack_timer -= delta
 
-	var move_dir = ideal_dir * move_speed + avoid
-	if move_dir.length() > 0.01:
-		velocity.x = move_dir.normalized().x * move_speed
-		velocity.z = move_dir.normalized().z * move_speed
-	else:
-		velocity.x = 0
-		velocity.z = 0
+	if light_node:
+		light_node.light_color = Color(1, 0.2, 0.2)
+		light_node.light_energy = 0.5 + sin(time * 8.0) * 0.5
 
-	velocity = move_and_slide(velocity, Vector3.UP)
+	if player and player.has_method("is_hiding") and player.is_hiding():
+		_reset_attack()
+		return
 
-	if velocity.length() > 0.01:
-		var angle = atan2(velocity.x, velocity.z)
-		rotation.y = lerp_angle(rotation.y, angle, delta * 3.0)
+	if attack_timer <= 0 and _can_see_player():
+		if light_node:
+			light_node.light_color = Color(1, 1, 1)
+			light_node.light_energy = 2.0
+		emit_signal("player_detected")
+		state = State.COOLDOWN
+		cooldown_timer = 5.0
+		current_idx = 0
+		return
+
+	if attack_timer <= 0:
+		_reset_attack()
+
+func _can_see_player() -> bool:
+	if not player:
+		return false
+	var dir = player.global_transform.origin - global_transform.origin
+	var dist = dir.length()
+	detect_ray.cast_to = to_local(player.global_transform.origin)
+	detect_ray.force_raycast_update()
+	var can_see = true
+	if detect_ray.is_colliding():
+		var hit_local = to_local(detect_ray.get_collision_point())
+		if hit_local.length() < dist:
+			can_see = false
+	return can_see and dist < detection_range
+
+func _reset_attack():
+	state = State.COOLDOWN
+	cooldown_timer = 3.0
+	current_idx = 0
+	if light_node:
+		light_node.light_color = Color(0, 1, 0)
+		light_node.light_energy = 1.0
+
+func _cooldown(delta):
+	cooldown_timer -= delta
+	if light_node:
+		light_node.light_energy = 0.3 + sin(time * 5.0) * 0.2
+	if cooldown_timer <= 0:
+		_reset_patrol()
+
+func _reset_patrol():
+	current_idx = 0
+	global_transform.origin = waypoints[patrol_order[0]]
+	dwell_timer = dwell_time
+	state = State.PATROL
+	if light_node:
+		light_node.light_color = Color(0.7, 0.85, 1.0)
 
 func _draw_debug_rays():
 	debug_geo.clear()
 	debug_geo.begin(Mesh.PRIMITIVE_LINES)
-
 	_draw_line(front_ray, Color(0, 1, 0), Color(1, 0.5, 0))
 	_draw_line(left_ray, Color(0.3, 0.8, 0), Color(1, 0.5, 0))
 	_draw_line(right_ray, Color(0.3, 0.8, 0), Color(1, 0.5, 0))
 	_draw_line(detect_ray, Color(1, 0, 0), Color(1, 1, 0))
-
 	debug_geo.end()
 
 func _draw_line(ray: RayCast, idle: Color, hit: Color):
@@ -152,39 +193,3 @@ func _draw_line(ray: RayCast, idle: Color, hit: Color):
 func _animate(delta):
 	body_mesh.translation.y = sin(time * float_speed) * float_amp
 	sweeper.rotation.y += delta * deg2rad(spin_speed)
-
-	if light_node:
-		light_node.light_energy = 0.8 + sin(time * 2.5) * 0.1
-
-func _check_detection():
-	if not player:
-		return
-
-	var dir = player.global_transform.origin - global_transform.origin
-	var dist = dir.length()
-	var was_visible = player_visible
-
-	detect_ray.cast_to = to_local(player.global_transform.origin)
-	detect_ray.force_raycast_update()
-
-	var can_see = true
-	if detect_ray.is_colliding():
-		var hit_local = to_local(detect_ray.get_collision_point())
-		if hit_local.length() < dist:
-			can_see = false
-
-	player_visible = can_see and dist < detection_range
-
-	if player_visible:
-		var hiding = player.has_method("is_hiding") and player.is_hiding()
-		if not hiding:
-			if light_node:
-				light_node.light_color = Color(1, 0.2, 0.2)
-			if not was_visible:
-				emit_signal("player_detected")
-		else:
-			if light_node:
-				light_node.light_color = Color(1, 0.9, 0.3)
-	else:
-		if was_visible and light_node:
-			light_node.light_color = Color(0.7, 0.85, 1.0)
