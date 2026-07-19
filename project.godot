@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Script/utils/Easing.gd"
 }, {
+"base": "SpotLight",
+"class": "FlashlightController",
+"language": "GDScript",
+"path": "res://Script/utils/FlashlightController.gd"
+}, {
 "base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
@@ -66,6 +71,7 @@ _global_script_class_icons={
 "DoorObstacleDetector": "",
 "DoorState": "",
 "Easing": "",
+"FlashlightController": "",
 "GitAPI": "",
 "LookDownDetector": "",
 "MouseLookController": "",
