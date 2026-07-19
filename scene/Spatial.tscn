@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Script/CORE/FnafMovement.gd" type="Script" id=1]
 [ext_resource path="res://Script/CORE/RollingDoor.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Asset/Texture/WhatsApp Image 2026-07-18 at 20.25.17 (3).jpeg" type="Texture" id=5]
 [ext_resource path="res://Asset/Texture/WhatsApp Image 2026-07-18 at 20.25.17 (2).jpeg" type="Texture" id=6]
 [ext_resource path="res://Script/utils/FlashlightController.gd" type="Script" id=7]
+[ext_resource path="res://scene/RobotCleaner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Script/player_hide/HideSpot.gd" type="Script" id=9]
 
 [sub_resource type="ProceduralSky" id=3]
 sky_top_color = Color( 0.188235, 0.254902, 0.294118, 1 )
@@ -348,7 +350,7 @@ depth = 6.06224
 material = SubResource( 12 )
 
 [node name="CSGBox22" type="CSGBox" parent="Map"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.76985, 0.362399, -3.6727 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.92473, 0.362399, -3.6727 )
 use_collision = true
 width = 19.342
 height = 5.85344
@@ -641,5 +643,56 @@ spot_range = 8.486
 spot_attenuation = 12.1257
 spot_angle = 48.96
 spot_angle_attenuation = 0.870551
+
+[node name="HideUI" type="CanvasLayer" parent="."]
+
+[node name="HidePrompt" type="Label" parent="HideUI"]
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 0.5
+anchor_bottom = 0.7
+margin_left = -100.0
+margin_top = -15.0
+margin_right = 100.0
+margin_bottom = 15.0
+align = 1
+
+[node name="HideStatus" type="Label" parent="HideUI"]
+anchor_left = 0.5
+anchor_top = 0.75
+anchor_right = 0.5
+anchor_bottom = 0.75
+margin_left = -100.0
+margin_top = -15.0
+margin_right = 100.0
+margin_bottom = 15.0
+align = 1
+
+[node name="HideSpot1" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0.5, -7.37 )
+script = ExtResource( 9 )
+radius = 1.5
+
+[node name="HideSpot2" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, -11.5 )
+script = ExtResource( 9 )
+
+[node name="RobotWaypoints" type="Spatial" parent="."]
+
+[node name="WP1" type="Position3D" parent="RobotWaypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.85694, 0.35, 4.49135 )
+
+[node name="WP2" type="Position3D" parent="RobotWaypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41241, 0.35, -15.7527 )
+
+[node name="WP3" type="Position3D" parent="RobotWaypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10425, 0.35, -14.4856 )
+
+[node name="WP4" type="Position3D" parent="RobotWaypoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.4462, 0.349998, -23.0516 )
+
+[node name="RobotCleaner" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 0.367839, 0, 0, 0, 1, 3.84654, 1.35544, 3.81162 )
+waypoints_path = NodePath("../RobotWaypoints")
 
 [connection signal="pressed" from="UIBehindNFront/ViewButton" to="ClippedCamera" method="_on_view_button_pressed"]

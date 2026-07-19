@@ -9,10 +9,14 @@ export(float) var look_down_threshold := 0.8
 export(float) var move_duration := 3.5
 export(NodePath) var back_pos_path
 export(NodePath) var view_button_path
+export(float) var hide_camera_offset := -0.8
 
 var yaw_center := 0.0
 var state = CameraState.State.FRONT
 var front_pos := Vector3.ZERO
+var e_held := false
+var front_y := 0.0
+var back_y := 0.0
 
 onready var camera: Spatial = $Camera if has_node("Camera") else self
 onready var back_pos: Position3D = get_node(back_pos_path) if back_pos_path else null
@@ -21,10 +25,17 @@ onready var view_button: Button = get_node(view_button_path) if view_button_path
 onready var mouse_look = MouseLookController.new()
 onready var look_down = LookDownDetector.new()
 onready var transitioner = ViewTransitioner.new()
+var hide_control = null
 
 func _ready() -> void:
+	hide_control = preload("res://Script/player_hide/PlayerHide.gd").new()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	front_pos = camera.global_transform.origin
+	front_y = front_pos.y
+	if back_pos:
+		back_y = back_pos.global_transform.origin.y
+	else:
+		back_y = front_y
 	if view_button:
 		view_button.hide()
 
@@ -35,6 +46,13 @@ func _ready() -> void:
 	mouse_look.smooth_speed = smooth_speed
 	look_down.threshold = look_down_threshold
 	transitioner.duration = move_duration
+
+	var prompt = get_node_or_null("../HideUI/HidePrompt")
+	var status = get_node_or_null("../HideUI/HideStatus")
+	if prompt:
+		prompt.add_color_override("font_color", Color(1, 1, 1))
+	if status:
+		status.add_color_override("font_color", Color(1, 1, 0))
 
 func _process(delta: float) -> void:
 	var screen = get_viewport().size
@@ -47,6 +65,16 @@ func _process(delta: float) -> void:
 			view_button.show()
 		else:
 			view_button.hide()
+
+	var currently_held = Input.is_key_pressed(KEY_E)
+	var just_pressed = currently_held and not e_held
+	var just_released = not currently_held and e_held
+	e_held = currently_held
+
+	var in_range = _check_hide_spots()
+	hide_control.process(delta, just_pressed, just_released, in_range)
+	_update_hide_ui(in_range)
+	_update_hide_camera(delta)
 
 	match state:
 		CameraState.State.FRONT, CameraState.State.BACK:
@@ -64,6 +92,47 @@ func _process(delta: float) -> void:
 					view_button.text = "FRONT" if state == CameraState.State.BACK else "BEHIND"
 
 	camera.rotation_degrees.y = yaw_center + mouse_look.yaw_offset
+
+func _check_hide_spots() -> bool:
+	var spots = get_tree().get_nodes_in_group("hide_spots")
+	var player_pos = camera.global_transform.origin
+	for spot in spots:
+		var r = 2.0
+		if spot.get("radius") != null:
+			r = spot.get("radius")
+		if spot.global_transform.origin.distance_to(player_pos) < r:
+			return true
+	return false
+
+func _update_hide_ui(in_range):
+	var prompt = get_node_or_null("../HideUI/HidePrompt")
+	var status = get_node_or_null("../HideUI/HideStatus")
+	if not prompt or not status:
+		return
+
+	var hiding = hide_control.is_hiding()
+	var transitioning = hide_control.is_transitioning()
+
+	if hiding or transitioning:
+		prompt.text = ""
+		status.text = hide_control.get_state_text()
+	elif in_range:
+		prompt.text = "Press E to Hide"
+		status.text = ""
+	else:
+		prompt.text = ""
+		status.text = ""
+
+func _update_hide_camera(delta):
+	if state == CameraState.State.FRONT or state == CameraState.State.BACK:
+		var base = front_y if state == CameraState.State.FRONT else back_y
+		var target_y = base + hide_camera_offset * hide_control.get_hide_amount()
+		var pos = camera.global_transform.origin
+		pos.y = lerp(pos.y, target_y, delta * 8.0)
+		camera.global_transform.origin = pos
+
+func is_hiding() -> bool:
+	return hide_control.is_hiding()
 
 func _on_view_button_pressed() -> void:
 	match state:
