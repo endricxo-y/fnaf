@@ -3,6 +3,9 @@ class_name PlayerHide
 
 enum State { VISIBLE, HIDING, HIDDEN }
 
+export(String) var hiding_text := "HIDING..."
+export(String) var hidden_text := "HIDDEN"
+
 var state = State.VISIBLE
 var progress := 0.0
 var enter_duration := 0.4
@@ -56,8 +59,8 @@ func get_state_text() -> String:
 		State.VISIBLE:
 			return ""
 		State.HIDING:
-			return "HIDING..."
+			return hiding_text
 		State.HIDDEN:
-			return "HIDDEN"
+			return hidden_text
 		_:
 			return ""

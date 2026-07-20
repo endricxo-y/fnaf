@@ -24,7 +24,6 @@ var attack_trigger_wp := 2
 var front_ray: RayCast
 var left_ray: RayCast
 var right_ray: RayCast
-var detect_ray: RayCast
 var debug_geo: ImmediateGeometry
 var time := 0.0
 
@@ -63,7 +62,6 @@ func _setup_rays():
 	front_ray = _make_ray(up + Vector3(0, 0, -0.5))
 	left_ray = _make_ray(up + Vector3(-0.35, 0, -0.35))
 	right_ray = _make_ray(up + Vector3(0.35, 0, -0.35))
-	detect_ray = _make_ray(Vector3(0, 0, -detection_range))
 
 func _make_ray(cast: Vector3) -> RayCast:
 	var r = RayCast.new()
@@ -135,21 +133,25 @@ func _attack(delta):
 		return
 
 	if attack_timer <= 0:
-		_reset_attack()
+		attack_timer = 2.0
 
 func _can_see_player() -> bool:
 	if not player:
 		return false
-	var dir = player.global_transform.origin - global_transform.origin
-	var dist = dir.length()
-	detect_ray.cast_to = to_local(player.global_transform.origin)
-	detect_ray.force_raycast_update()
-	var can_see = true
-	if detect_ray.is_colliding():
-		var hit_local = to_local(detect_ray.get_collision_point())
-		if hit_local.length() < dist:
-			can_see = false
-	return can_see and dist < detection_range
+	var from = global_transform.origin
+	var to = player.global_transform.origin
+	var dist = from.distance_to(to)
+	if dist > detection_range:
+		return false
+
+	var space = get_world().direct_space_state
+	var result = space.intersect_ray(from, to, [self])
+
+	if result.empty():
+		return true
+
+	var hit_dist = from.distance_to(result.position)
+	return hit_dist >= dist
 
 func _reset_attack():
 	state = State.COOLDOWN
@@ -180,7 +182,11 @@ func _draw_debug_rays():
 	_draw_line(front_ray, Color(0, 1, 0), Color(1, 0.5, 0))
 	_draw_line(left_ray, Color(0.3, 0.8, 0), Color(1, 0.5, 0))
 	_draw_line(right_ray, Color(0.3, 0.8, 0), Color(1, 0.5, 0))
-	_draw_line(detect_ray, Color(1, 0, 0), Color(1, 1, 0))
+	if player:
+		var c = Color(1, 0, 0) if _can_see_player() else Color(1, 1, 0)
+		debug_geo.set_color(c)
+		debug_geo.add_vertex(Vector3.ZERO)
+		debug_geo.add_vertex(to_local(player.global_transform.origin))
 	debug_geo.end()
 
 func _draw_line(ray: RayCast, idle: Color, hit: Color):

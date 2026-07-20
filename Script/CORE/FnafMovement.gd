@@ -10,6 +10,7 @@ export(float) var move_duration := 3.5
 export(NodePath) var back_pos_path
 export(NodePath) var view_button_path
 export(float) var hide_camera_offset := -0.8
+export(String) var hide_prompt_text := "Press E to Hide"
 
 var yaw_center := 0.0
 var state = CameraState.State.FRONT
@@ -26,6 +27,8 @@ onready var mouse_look = MouseLookController.new()
 onready var look_down = LookDownDetector.new()
 onready var transitioner = ViewTransitioner.new()
 var hide_control = null
+
+onready var walk_audio: AudioStreamPlayer = $WalkAudio if has_node("WalkAudio") else null
 
 func _ready() -> void:
 	hide_control = preload("res://Script/player_hide/PlayerHide.gd").new()
@@ -90,6 +93,8 @@ func _process(delta: float) -> void:
 				if view_button:
 					view_button.disabled = false
 					view_button.text = "FRONT" if state == CameraState.State.BACK else "BEHIND"
+				if walk_audio:
+					walk_audio.stop()
 
 	camera.rotation_degrees.y = yaw_center + mouse_look.yaw_offset
 
@@ -117,7 +122,7 @@ func _update_hide_ui(in_range):
 		prompt.text = ""
 		status.text = hide_control.get_state_text()
 	elif in_range:
-		prompt.text = "Press E to Hide"
+		prompt.text = hide_prompt_text
 		status.text = ""
 	else:
 		prompt.text = ""
@@ -153,3 +158,5 @@ func _start_move_to(target_state: int, yaw_delta: float) -> void:
 	if view_button:
 		view_button.hide()
 		view_button.disabled = true
+	if walk_audio:
+		walk_audio.play()

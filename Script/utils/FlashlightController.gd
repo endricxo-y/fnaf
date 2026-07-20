@@ -10,6 +10,9 @@ export(bool) var cast_shadows := false
 export(float, 0.1, 5.0) var ray_distance := 15.0
 export(int, "key") var toggle_key := KEY_SHIFT
 
+var _was_active := false
+var _audio_player: AudioStreamPlayer
+
 func _ready():
 	visible = false
 	translation = Vector3.ZERO
@@ -21,8 +24,17 @@ func _ready():
 	spot_range = light_range
 	shadow_enabled = cast_shadows
 
+	_audio_player = AudioStreamPlayer.new()
+	_audio_player.stream = preload("res://Asset/Sound/Flashlight.mp3")
+	_audio_player.stream.loop = false
+	add_child(_audio_player)
+
 func _process(_delta):
-	visible = Input.is_key_pressed(toggle_key)
+	var active = Input.is_key_pressed(toggle_key)
+	if active != _was_active:
+		_play_sound()
+	_was_active = active
+	visible = active
 	if not visible:
 		return
 
@@ -34,3 +46,8 @@ func _process(_delta):
 	var from = camera.project_ray_origin(mouse_pos)
 	var dir = camera.project_ray_normal(mouse_pos)
 	look_at(from + dir * ray_distance, Vector3.UP)
+
+func _play_sound():
+	if _audio_player:
+		_audio_player.stop()
+		_audio_player.play()

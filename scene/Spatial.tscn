@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Script/CORE/FnafMovement.gd" type="Script" id=1]
 [ext_resource path="res://Script/CORE/RollingDoor.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Script/utils/FlashlightController.gd" type="Script" id=7]
 [ext_resource path="res://scene/RobotCleaner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Script/player_hide/HideSpot.gd" type="Script" id=9]
+[ext_resource path="res://Asset/Sound/walk (mp3cut.net).mp3" type="AudioStream" id=10]
 
 [sub_resource type="ProceduralSky" id=3]
 sky_top_color = Color( 0.188235, 0.254902, 0.294118, 1 )
@@ -163,6 +164,9 @@ script = ExtResource( 7 )
 light_range = 11.739
 light_angle = 22.609
 ray_distance = 1.165
+
+[node name="WalkAudio" type="AudioStreamPlayer" parent="ClippedCamera"]
+stream = ExtResource( 10 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
@@ -651,10 +655,11 @@ anchor_left = 0.5
 anchor_top = 0.7
 anchor_right = 0.5
 anchor_bottom = 0.7
-margin_left = -100.0
-margin_top = -15.0
-margin_right = 100.0
-margin_bottom = 15.0
+margin_left = -505.0
+margin_top = 88.0
+margin_right = -305.0
+margin_bottom = 118.0
+text = "E to hide"
 align = 1
 
 [node name="HideStatus" type="Label" parent="HideUI"]
@@ -662,10 +667,11 @@ anchor_left = 0.5
 anchor_top = 0.75
 anchor_right = 0.5
 anchor_bottom = 0.75
-margin_left = -100.0
-margin_top = -15.0
-margin_right = 100.0
-margin_bottom = 15.0
+margin_left = -104.0
+margin_top = -17.0
+margin_right = 96.0
+margin_bottom = 13.0
+text = "HIDDEN"
 align = 1
 
 [node name="HideSpot1" type="Spatial" parent="."]
